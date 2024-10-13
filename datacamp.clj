@@ -58,9 +58,17 @@
 
 (second (re-find #"embedUrl\":\s+\"(.*?)\"" video-page-raw))
 
-(def projector-page
-  (bootleg/convert-to (slurp "video-page.html") :hickory-seq))
+(defn hickory-html [raw-html]
+  (->> (bootleg/convert-to raw-html :hickory-seq)
+       (filter #(= (:tag %) :html))
+       first))
 
-(s/select (s/id "videoData")
-          (second projector-page))
+(def projector-page (hickory-html (slurp "video-page.html")))
+
+(s/select (s/id "videoData") projector-page)
+
 (s/select (s/tag :table) projector-page)
+
+(def video-page (hickory-html (slurp "page.html")))
+
+(s/select (s/attr "type" #(= "application/ld+json" %)) video-page)
