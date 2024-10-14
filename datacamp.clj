@@ -71,4 +71,29 @@
 
 (def video-page (hickory-html (slurp "page.html")))
 
-(s/select (s/attr "type" #(= "application/ld+json" %)) video-page)
+(->> video-page
+     (s/select (s/attr "type" #(= "application/ld+json" %)))
+     first
+     :content
+     first
+     json/read-str
+     :embedUrl)
+
+(def headers-qq
+  {"accept" "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+   "user-agent" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36'"
+   })
+
+(def projector-raw 
+  (:body (http/get "https://projector.datacamp.com/?projector_key=course_1329_0a9a8b15ef6a33602a2614a5484d63ac"
+                   {:headers headers-qq})))
+
+(s/select (s/id "videoData") (hickory-html projector-raw))
+
+(->> (hickory-html projector-raw)
+     (s/select (s/id "videoData"))
+     first
+     :attrs
+     :value
+     json/read-str
+     :video_mp4_link)
