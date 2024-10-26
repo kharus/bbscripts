@@ -24,6 +24,19 @@
 
 
 (comment
-  (let [dict-lines (rest (read-lines "Татарча.csv"))]
+  (let [dict-lines (rest (read-lines "podcast.csv"))]
+    (save-anki "podcast.tat.txt" (forward-notes dict-lines))
+    (save-anki "podcast.rus.txt" (reverse-notes dict-lines)))
+  :rcf)
+
+(comment
+  (let [dict-lines (rest (read-lines "tamil.csv"))]
+    (save-anki "rafa.tam.txt" (forward-notes dict-lines))
+    (save-anki "rafa.eng.txt" (reverse-notes dict-lines)))
+  :rcf)
+
+(comment
+  (let [dict-lines (rest (read-lines "litvinov.csv"))]
     (save-anki "litvinov.tat.txt" (forward-notes dict-lines))
-    (save-anki "litvinov.rus.txt" (reverse-notes dict-lines))))
+    (save-anki "litvinov.rus.txt" (reverse-notes dict-lines)))
+  :rcf)
