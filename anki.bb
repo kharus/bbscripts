@@ -42,8 +42,7 @@
   :rcf)
 
 (comment
-  (let [dict-lines (rest (read-lines "булу.csv"))
+  (let [dict-lines (rest (read-lines "итү.csv"))
         trim-lines (map #(take 2 %) dict-lines)]
-    (save-anki "булу.tat.txt" (forward-notes trim-lines))
-    (save-anki "булу.rus.txt" (reverse-notes trim-lines))) 
+    (save-anki "итү.rus.txt" (reverse-notes trim-lines)))
   :rcf)
