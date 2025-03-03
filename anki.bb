@@ -1,3 +1,5 @@
+(require '[babashka.cli :as cli])
+
 (defn anki-line [line]
   (into ["Basic (type in the answer)"]
         (mapv str/lower-case line)))
@@ -42,7 +44,13 @@
   :rcf)
 
 (comment
-  (let [dict-lines (rest (read-lines "итү.csv"))
+  (let [dict-lines (rest (read-lines "эшләү.csv"))
         trim-lines (map #(take 2 %) dict-lines)]
-    (save-anki "итү.rus.txt" (reverse-notes trim-lines)))
+    (save-anki "эшләү.rus.txt" (reverse-notes trim-lines)))
   :rcf)
+
+
+(let [sourse-file (first (:args (cli/parse-args *command-line-args*)))
+      dict-lines (rest (read-lines (str sourse-file ".csv")))
+      trim-lines (map #(take 2 %) dict-lines)]
+  (save-anki (str sourse-file ".rus.txt") (reverse-notes trim-lines)))
