@@ -23,5 +23,10 @@
     (run! fs/delete course-weeks)))
 
 (comment
-  (flatten-course "/home/ruslan/tmp/mooc/guitar-chords")
+  (flatten-course "/home/ruslan/tmp/mooc/Science_Cooking_chemistry")
   :keep)
+
+(def course-dir "/home/ruslan/tmp/mooc/Science_Cooking_physics")
+
+(map fs/file-name
+     (ordered-dirs course-dir))
