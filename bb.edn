@@ -1,3 +1,4 @@
-{:deps {lambdaisland/uri {:mvn/version "1.16.134"}
+{:paths ["src"]
+ :deps {lambdaisland/uri {:mvn/version "1.16.134"}
         org.babashka/json {:mvn/version "0.1.1"}
         meander/epsilon {:mvn/version "0.0.650"}}}

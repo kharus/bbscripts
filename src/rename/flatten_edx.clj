@@ -7,7 +7,7 @@
            (filter fs/directory? (fs/list-dir dir))))
 
 (defn week-number [week-path]
-  (second (re-find #"(\d+)_" (fs/file-name week-path))))
+  (second (re-find #"(\d+)-" (fs/file-name week-path))))
 
 (defn flatten-week [week-path]
   (let [week-id (week-number week-path)
@@ -23,5 +23,10 @@
     (run! fs/delete course-weeks)))
 
 (comment
-  (flatten-course "/home/ruslan/tmp/mooc/guitar-chords")
+  (flatten-course "/home/ruslan/tmp/mooc/Food_Fermentation_The_Science")
   :keep)
+
+(def course-dir "/home/ruslan/tmp/mooc/Science_Cooking_physics")
+
+(map week-number
+     (ordered-dirs course-dir))
