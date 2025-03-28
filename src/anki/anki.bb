@@ -1,4 +1,9 @@
-(require '[babashka.cli :as cli])
+(ns anki.anki
+  (:require
+   [babashka.cli :as cli]
+   [clojure.string :as str]
+   [clojure.java.io :as io]
+   [clojure.data.csv :as csv]))
 
 (defn anki-line [line]
   (into ["Basic (type in the answer)"]
@@ -49,8 +54,8 @@
     (save-anki "эшләү.rus.txt" (reverse-notes trim-lines)))
   :rcf)
 
-
-(let [sourse-file (first (:args (cli/parse-args *command-line-args*)))
-      dict-lines (rest (read-lines (str sourse-file ".csv")))
-      trim-lines (map #(take 2 %) dict-lines)]
-  (save-anki (str sourse-file ".rus.txt") (reverse-notes trim-lines)))
+(defn -main [& args]
+  (let [sourse-file (first (:args (cli/parse-args *command-line-args*)))
+        dict-lines (rest (read-lines (str sourse-file ".csv")))
+        trim-lines (map #(take 2 %) dict-lines)]
+    (save-anki (str sourse-file ".rus.txt") (reverse-notes trim-lines))))
