@@ -1,10 +1,12 @@
-(require '[babashka.http-client :as http]
-         '[babashka.json :as json]
-         '[lambdaisland.uri :refer [uri]]
-         '[babashka.fs :as fs]
-         '[selmer.parser :as selmer]
-         '[babashka.pods :as pods]
-         '[meander.epsilon :as m])
+(ns lg-epub.lj
+  (:require [babashka.http-client :as http]
+    [babashka.json :as json]
+    [lambdaisland.uri :refer [uri]]
+    [babashka.fs :as fs]
+    [selmer.parser :as selmer]
+    [babashka.pods :as pods]
+    [meander.epsilon :as m]))
+
 (pods/load-pod 'retrogradeorbit/bootleg "0.1.9")
 (pods/load-pod 'com.github.jackdbd/jsoup "0.4.0")
 
@@ -34,12 +36,11 @@
   
   (hickory-html (:outer-html html-article))
   
-  (bootleg/convert-to (:outer-html html-article) :hickory-seq))
+  (bootleg/convert-to (:outer-html html-article) :hickory-seq)
+  (spit "article.html" (:outer-html html-article)))
 
-(spit "article.html" (:outer-html html-article))
 
 (selmer/set-resource-path! "/home/ruslan/code/bbscripts/templates")
-
 
 (spit "content.opf"
       (selmer/render-file "content.opf"
