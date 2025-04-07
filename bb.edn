@@ -1,4 +1,6 @@
 {:paths ["src"]
  :deps {lambdaisland/uri {:mvn/version "1.16.134"}
         org.babashka/json {:mvn/version "0.1.1"}
-        meander/epsilon {:mvn/version "0.0.650"}}}
+        meander/epsilon {:mvn/version "0.0.650"}}
+ :pods {com.github.jackdbd/jsoup {:version "0.4.0"}
+        retrogradeorbit/bootleg {:version "0.1.9"}}}
